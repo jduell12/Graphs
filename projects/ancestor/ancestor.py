@@ -2,6 +2,7 @@ import sys
 sys.path.append('../graph')
 
 from graph import Graph
+from util import Queue
 
 def earliest_ancestor(ancestors, starting_node):
     #create empty graph
@@ -19,10 +20,38 @@ def earliest_ancestor(ancestors, starting_node):
         if child not in tree.vertices:
             tree.add_vertex(child)
             
-        #add the directed edge from the child to the parent 
+        #add the directed edge from the child to the parent
         tree.add_edge(child, parent)
+        
+    #create queue and add starting node to queue as a path
+    q = Queue()
+    q.enqueue([starting_node])
+    
+    #create list of the current longest path 
+    longest_path = []
+    
+    #loop while q is not empty
+    while q.size() > 0:
+        path = q.dequeue()
+        
+        #checks if current path is the same as the prior longest path, if it is keep the path with the smaller value
+        if len(path) == len(longest_path) and path[-1] < longest_path[-1]:
+            longest_path = path
+        #if the current path is longer than the current longest path replace the current longest path with the current path
+        if len(path) > len(longest_path):
+            longest_path = path 
             
-    return tree.vertices
+        #add neighbors to the queue
+        for neighbor in tree.get_neighbors(path[-1]):
+            newPath = path.copy()
+            newPath.append(neighbor)
+            q.enqueue(newPath)
+    
+    #check if the longest path has more than 1 node
+    if len(longest_path) > 1:
+        return longest_path[-1]
+    else:
+        return -1
     
     
 if __name__ == '__main__':
