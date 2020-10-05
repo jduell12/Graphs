@@ -29,6 +29,7 @@
         - {A: [B, c], B:[D, C], C:[C, B], D:[]}
 
 - Traversing Graph
+
   - Breadth-first traversal
     - visit all nodes 1 level out from the node you start at
       - everything at distance 0 is visited before distance 1
@@ -48,3 +49,24 @@
     - visit all nodes down to as far as you could go on one line
     - uses stack instead of a queue
     - same code as bft just using a stack
+
+- Searching in a graph
+  - breadth-first search
+    - keep track of the path so far
+    - enqueue lists of the path so far
+      - queue --> [[C, B], [C, G]]
+    - queue is keeping track of all the shortest paths so far
+    ```
+        create an empty queue and enque starting vertex
+        create a set to store visited vertices
+        while the queue is not empty:
+            dequeue the first PATH
+            grab the last vertex from the PATH
+            if that vertex not visited:
+                check if vertex is target vertex:
+                    return PATH
+                visit the node
+                add a PATH TO its neighbors to the back of the queue
+                    copy the PATH
+                    append the neighbor PATH to the back
+    ```
