@@ -124,9 +124,33 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        s = Stack()
+        visited = set()
+        
+        s.push([starting_vertex])
+        
+        while s.size() > 0:
+            #get last path added to stack
+            path = s.pop()
+            #get last vertex on the path
+            v = path[-1]
+            
+            #check if the vertex has been visited 
+            if v not in visited:
+                #check if vertex is destination
+                if v is destination_vertex:
+                    return path
+                
+                #add to visited 
+                visited.add(v)
+                
+                #add a path to the v's neighbors to the front of the stack
+                for neighbor in self.get_neighbors(v):
+                    newPath = path.copy()
+                    newPath.append(neighbor)
+                    s.push(newPath)
 
-    def dfs_recursive(self, starting_vertex, destination_vertex):
+    def dfs_recursive(self, starting_vertex, destination_vertex, visited=None, path=None):
         """
         Return a list containing a path from
         starting_vertex to destination_vertex in
@@ -134,7 +158,30 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        
+        if visited is None:
+            visited = set()
+            
+        if path is None:
+            path = []
+            
+        visited.add(starting_vertex)
+        newPath = [*path, starting_vertex]
+        
+        #check last vertex is the destination
+        if newPath[-1] == destination_vertex:
+            return newPath
+        
+        for vertex in self.vertices[starting_vertex]:
+            #check if neighbors have been visited
+            if vertex not in visited:
+                #get the neighbor path
+                neighborPath = self.dfs_recursive(vertex, destination_vertex, visited, newPath)
+                #return the neighborPath so it can be added to path
+                if neighborPath:
+                    return neighborPath
+            
+        
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
@@ -197,13 +244,14 @@ if __name__ == '__main__':
     Valid BFS path:
         [1, 2, 4, 6]
     '''
-    print("------------BFS-------------------")
-    print(graph.bfs(1, 6))
+    # print("------------BFS-------------------")
+    # print(graph.bfs(1, 6))
 
-    # '''
-    # Valid DFS paths:
-    #     [1, 2, 4, 6]
-    #     [1, 2, 4, 7, 6]
-    # '''
-    # print(graph.dfs(1, 6))
-    # print(graph.dfs_recursive(1, 6))
+    '''
+    Valid DFS paths:
+        [1, 2, 4, 6]
+        [1, 2, 4, 7, 6]
+    '''
+    print("------------DFS-------------------")
+    print(graph.dfs(1, 6))
+    print(graph.dfs_recursive(1, 6))
