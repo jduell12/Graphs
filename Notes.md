@@ -45,3 +45,6 @@
               add all its neighbors (adjacent nodes) to the queue
       ```
   - Depth-first traversal
+    - visit all nodes down to as far as you could go on one line
+    - uses stack instead of a queue
+    - same code as bft just using a stack
