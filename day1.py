@@ -81,6 +81,16 @@ class Graph:
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
                     
+    def dft_recursive(self, starting_vertex, visited=set()):        
+        #visit node
+        print(starting_vertex)
+        visited.add(starting_vertex)
+        
+        #traverse starting vertex neighbors
+        for neighbor in self.get_neighbors(starting_vertex):
+            if neighbor not in visited:
+                self.dft_recursive(neighbor, visited)
+                    
     def bfs(self, starting_vertex_id, target_vertex):
         q = Queue()
         visited = set()
@@ -132,23 +142,22 @@ class Graph:
                     newPath.append(neighbor)
                     s.push(newPath)            
         
-    def dfs_recursive(self, starting_vertex_id, target_vertex):
-        pass
+    
         
         
 g = Graph()
-g.add_vertex(1)
-g.add_vertex(2)
-g.add_vertex(3)
+g.add_vertex('A')
+g.add_vertex('y')
+g.add_vertex('x')
+g.add_vertex('z')
 
-g.add_edge(2, 1)
-g.add_edge(1, 2)
-g.add_edge(2, 3)
+g.add_edge('A', 'x')
+g.add_edge('A', 'y')
+g.add_edge('y', 'z')
+g.add_edge('x', 'A')
+g.add_edge('z', 'x')
 
 print(g.vertices)
 print("")
 
-print(g.bfs(1, 3))
-print(g.bfs(2, 3))
-print(g.bfs(1, 2))
-print(g.bfs(3, 1))
+g.dft_recursive('A')
