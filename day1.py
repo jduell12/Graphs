@@ -149,8 +149,7 @@ class Graph:
         
         if path is None:
             path = []
-            
-            
+        
         if starting_vertex == target_vertex:
             return path
         
