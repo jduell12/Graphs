@@ -26,7 +26,7 @@ endWord = "happy"
 None
 """
 
-from day1 import Graph, Queue
+from day1 import Queue
 import string
 
 #get the words from a file into a set 
@@ -42,7 +42,7 @@ with open('words.txt') as f:
 #total runtime complexity --> O(26680n) over length of word
 def get_neighbors1(word):
     neighbors = []
-    for w in words: #O(n) for number of words
+    for w in words: #O(n) for number of words 26680 
         if len(w) == len(word):
             diff_count = 0
             
