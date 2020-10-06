@@ -98,4 +98,4 @@ def bfs(begin_word, end_word):
                 path_copy = path + [neighbor]
                 q.enqueue(path_copy)
                 
-print(bfs('four', 'door'))
+print(bfs('hit', 'hog'))
