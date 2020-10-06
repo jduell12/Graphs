@@ -80,20 +80,75 @@ class Graph:
                 visited.add(v)
                 for neighbor in self.get_neighbors(v):
                     s.push(neighbor)
+                    
+    def bfs(self, starting_vertex_id, target_vertex):
+        q = Queue()
+        visited = set()
+        
+        #init
+        q.enqueue([starting_vertex_id])
+        
+        #while queue is not empty
+        while q.size() > 0:
+            #get path from queue
+            path = q.dequeue()
+            #get last vertex in path
+            v = path[-1]
+            
+            if v not in visited:
+                if v == target_vertex:
+                    return path
+                visited.add(v)
+                
+                for neighbor in self.get_neighbors(v):
+                    newPath = path.copy()
+                    newPath.append(neighbor)
+                    q.enqueue(newPath)
+                    
+    def dfs(self, starting_vertex, destination_vertex):
+        s = Stack()
+        visited = set()
+        
+        s.push([starting_vertex])
+        
+        while s.size() > 0:
+            #get last path added to stack
+            path = s.pop()
+            #get last vertex on the path
+            v = path[-1]
+            
+            #check if the vertex has been visited 
+            if v not in visited:
+                #check if vertex is destination
+                if v is destination_vertex:
+                    return path
+                
+                #add to visited 
+                visited.add(v)
+                
+                #add a path to the v's neighbors to the front of the stack
+                for neighbor in self.get_neighbors(v):
+                    newPath = path.copy()
+                    newPath.append(neighbor)
+                    s.push(newPath)            
+        
+    def dfs_recursive(self, starting_vertex_id, target_vertex):
+        pass
         
         
 g = Graph()
 g.add_vertex(1)
 g.add_vertex(2)
 g.add_vertex(3)
-g.add_vertex(4)
 
 g.add_edge(2, 1)
 g.add_edge(1, 2)
 g.add_edge(2, 3)
-g.add_edge(2, 4)
 
 print(g.vertices)
-g.bft(1)
 print("")
-g.dft(1)
+
+print(g.bfs(1, 3))
+print(g.bfs(2, 3))
+print(g.bfs(1, 2))
+print(g.bfs(3, 1))
