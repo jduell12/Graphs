@@ -165,19 +165,19 @@ class Graph:
                     return n_path
         return 'Target vertex not in the graph' 
         
-g = Graph()
-g.add_vertex('A')
-g.add_vertex('y')
-g.add_vertex('x')
-g.add_vertex('z')
+# g = Graph()
+# g.add_vertex('A')
+# g.add_vertex('y')
+# g.add_vertex('x')
+# g.add_vertex('z')
 
-g.add_edge('A', 'x')
-g.add_edge('A', 'y')
-g.add_edge('y', 'z')
-g.add_edge('x', 'A')
-g.add_edge('z', 'x')
+# g.add_edge('A', 'x')
+# g.add_edge('A', 'y')
+# g.add_edge('y', 'z')
+# g.add_edge('x', 'A')
+# g.add_edge('z', 'x')
 
-print(g.vertices)
-print("")
+# print(g.vertices)
+# print("")
 
-print(g.dfs_recursive('A', 'x'))
+# print(g.dfs_recursive('A', 'x'))

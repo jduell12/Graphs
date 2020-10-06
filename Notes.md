@@ -70,3 +70,7 @@
                     copy the PATH
                     append the neighbor PATH to the back
     ```
+
+# Day 2
+
+- wordladders in day2.py
