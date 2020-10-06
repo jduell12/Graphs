@@ -149,14 +149,14 @@ class Graph:
         
         if path is None:
             path = []
+            
+            
+        if starting_vertex == target_vertex:
+            return path
         
         #visit node
         visited.add(starting_vertex)
         path += starting_vertex
-        
-        
-        if starting_vertex == target_vertex:
-            return path
         
         #traverse starting vertex neighbors
         for neighbor in self.get_neighbors(starting_vertex):
@@ -164,7 +164,7 @@ class Graph:
                 n_path = self.dfs_recursive(neighbor, target_vertex, visited, path)
                 if n_path:
                     return n_path
-        
+        return 'Target vertex not in the graph' 
         
 g = Graph()
 g.add_vertex('A')
@@ -181,4 +181,4 @@ g.add_edge('z', 'x')
 print(g.vertices)
 print("")
 
-print(g.dfs_recursive('A', 'z'))
+print(g.dfs_recursive('A', 'x'))
