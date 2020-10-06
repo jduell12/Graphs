@@ -142,7 +142,28 @@ class Graph:
                     newPath.append(neighbor)
                     s.push(newPath)            
         
-    
+    def dfs_recursive(self, starting_vertex, target_vertex, visited=None, path=None):        
+        
+        if visited is None:
+            visited = set()
+        
+        if path is None:
+            path = []
+        
+        #visit node
+        visited.add(starting_vertex)
+        path += starting_vertex
+        
+        
+        if starting_vertex == target_vertex:
+            return path
+        
+        #traverse starting vertex neighbors
+        for neighbor in self.get_neighbors(starting_vertex):
+            if neighbor not in visited:
+                n_path = self.dfs_recursive(neighbor, target_vertex, visited, path)
+                if n_path:
+                    return n_path
         
         
 g = Graph()
@@ -160,4 +181,4 @@ g.add_edge('z', 'x')
 print(g.vertices)
 print("")
 
-g.dft_recursive('A')
+print(g.dfs_recursive('A', 'z'))
