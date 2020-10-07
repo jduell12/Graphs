@@ -80,4 +80,4 @@
 - Connected Component
   - cluster of nodes that are connected via edges to each other
     - think of as separate islands in a graph
-  -
+  - worked example of island counter for a matrix representing nodes in a graph
