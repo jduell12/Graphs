@@ -74,3 +74,10 @@
 # Day 2
 
 - wordladders in day2.py
+
+# Day 3
+
+- Connected Component
+  - cluster of nodes that are connected via edges to each other
+    - think of as separate islands in a graph
+  -
