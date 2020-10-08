@@ -48,9 +48,9 @@ If all paths have been explored, you're done!
 
 ## Minimum Viable Product
 
-- **1**: Tests pass
-- **2**: Tests pass with `len(traversal_path) <= 2000`
-- **3**: Tests pass with `len(traversal_path) < 960`
+- **1 - Does not Meet Expectations**: Tests pass
+- **2 - Meets Expectations**: Tests pass with `len(traversal_path) <= 2000`
+- **3 - Exceeds Expectations**: Tests pass with `len(traversal_path) < 960`
 
 ## Stretch Problems
 

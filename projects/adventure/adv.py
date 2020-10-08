@@ -25,16 +25,16 @@ world = World()
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
 # map_file = "maps/test_cross.txt"
-map_file = "maps/test_loop.txt"
+# map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
-# map_file = "maps/main_maze.txt" #Main maze once done
+map_file = "maps/main_maze.txt" 
 
 # Loads the map into a dictionary
 room_graph=literal_eval(open(map_file, "r").read())
 world.load_graph(room_graph)
 
 # Print an ASCII map
-world.print_rooms()
+# world.print_rooms()
 print('')
 
 player = Player(world.starting_room)
@@ -74,11 +74,12 @@ steps = 0
 #go until the traversal graph has the same length as the room graph 
 while len(traversal_graph) < len(room_graph):   
     # print(f'Step: {steps}')
-    # print('traversal path', traversal_path) 
+    # print('prev dir', prev_dir)
     # print('current room', player.current_room.id)
+    # print('traversal path', traversal_path) 
     # print('go back path', go_back_path)
     # print('prev room', prev_room)
-    # print('prev dir', prev_dir)
+    
     
     #get current room exits
     exits = player.current_room.get_exits()
@@ -102,6 +103,7 @@ while len(traversal_graph) < len(room_graph):
         break
     
     # print('graph', traversal_graph)
+    
     #get the first unexplored room using 
     direc = getUnexploredExitDir()
 
@@ -117,16 +119,19 @@ while len(traversal_graph) < len(room_graph):
     else:
         #if didn't find any ? in current room exits go back the way we came until we find ? 
         while direc is None:
+            if len(go_back_path) == 0:
+                break
             #get last direction in path
             old_dir = go_back_path.pop()
             traversal_path.append(old_dir)
             player.travel(old_dir)
             direc = getUnexploredExitDir()
             steps += 1
-        #resets previous trackers 
-        go_back_path = []
-        prev_room = None
-        prev_dir = None
+        if len(go_back_path) == 0:
+            #resets previous trackers 
+            go_back_path = []
+            prev_room = None
+            prev_dir = None
         
     
     # print("---------------------------")
