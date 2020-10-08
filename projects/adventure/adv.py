@@ -65,7 +65,9 @@ while len(traversal_graph) < len(room_graph):
             #puts ? in each direction to mark as unexplored 
             traversal_graph[player.current_room.id][direc] = '?'
     
-    # print('graph',traversal_graph)
+    #checks if we have visited all rooms before moving again
+    if len(traversal_graph) == len(room_graph):
+        break
     
     #get the first unexplored room
     for direc in traversal_graph[player.current_room.id]:
@@ -76,7 +78,8 @@ while len(traversal_graph) < len(room_graph):
             traversal_graph[old_room][direc] = player.current_room.id
             break
     
-
+print('path', traversal_path)
+print('graph', traversal_graph)
 
 
 # ---------------------- TRAVERSAL TEST ----------------------
