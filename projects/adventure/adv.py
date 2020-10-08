@@ -29,7 +29,14 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
+#traversal graph
+traversal_graph = {}
+#put first room into the traversal graph
+traversal_graph[player.current_room] = {'n': '?', 's': '?', 'w': '?', 'e': '?'}
 
+#go until the traversal graph has the same length as the room graph 
+while len(traversal_graph) < len(room_graph):
+    pass
 
 # TRAVERSAL TEST
 visited_rooms = set()
