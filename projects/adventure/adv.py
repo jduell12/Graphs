@@ -45,15 +45,24 @@ traversal_path = []
 #traversal graph
 traversal_graph = {}
 
+#keeps track of prev room
+prev_room = None
+
+#keeps track of prev directoin
+prev_dir = None
+
+#way to keep track of opposite directions so we can quickly look up opposite direction to update traversal_graph
+opposite_directions = {
+    'n': 's',
+    's': 'n',
+    'w': 'e',
+    'e': 'w'
+}
+
 print('')
 
 #go until the traversal graph has the same length as the room graph 
-while len(traversal_graph) < len(room_graph):
-    # print(player.current_room.id)
-    # print('graph',traversal_graph)
-    # print('path', traversal_path)
-    # print("")
-    
+while len(traversal_graph) < len(room_graph):    
     #get current room exits
     exits = player.current_room.get_exits()
     
@@ -69,14 +78,22 @@ while len(traversal_graph) < len(room_graph):
     if len(traversal_graph) == len(room_graph):
         break
     
-    #get the first unexplored room
+    #check if coming from previous room 
+    if prev_room:
+        #updates the current and prev room with the corresponding directions
+        traversal_graph[prev_room][prev_dir] = player.current_room.id
+        traversal_graph[player.current_room.id][opposite_directions[prev_dir]] = prev_room
+    
+    #get the first unexplored room using 
     for direc in traversal_graph[player.current_room.id]:
         if traversal_graph[player.current_room.id][direc] == '?':
             traversal_path.append(direc)
-            old_room = player.current_room.id
+            prev = player.current_room.id
+            prev_dir = direc
             player.travel(direc)
-            traversal_graph[old_room][direc] = player.current_room.id
+            traversal_graph[prev_room][direc] = player.current_room.id
             break
+    break
     
 print('path', traversal_path)
 print('graph', traversal_graph)
