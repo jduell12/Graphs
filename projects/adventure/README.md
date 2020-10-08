@@ -58,6 +58,8 @@ It is very difficult to calculate the shortest possible path that traverses the 
 
 My best path is 957 moves. Can you find a shorter path?
 
+- Least number of rooms for full maze possible: 918
+
 ## Rubric
 
 | OBJECTIVE                                                                             | TASK                                | 1 - DOES NOT MEET Expectations                                         | 2 - MEETS Expectations                                                 | 3 - EXCEEDS Expectations                                     | SCORE |
