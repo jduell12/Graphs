@@ -24,8 +24,8 @@ world = World()
 
 # You may uncomment the smaller graphs for development and testing purposes.
 # map_file = "maps/test_line.txt"
-map_file = "maps/test_cross.txt"
-# map_file = "maps/test_loop.txt"
+# map_file = "maps/test_cross.txt"
+map_file = "maps/test_loop.txt"
 # map_file = "maps/test_loop_fork.txt"
 # map_file = "maps/main_maze.txt" #Main maze once done
 
@@ -73,12 +73,12 @@ steps = 0
 
 #go until the traversal graph has the same length as the room graph 
 while len(traversal_graph) < len(room_graph):   
-    print(f'Step: {steps}')
-    print('traversal path', traversal_path) 
-    print('current room', player.current_room.id)
-    print('go back path', go_back_path)
-    print('prev room', prev_room)
-    print('prev dir', prev_dir)
+    # print(f'Step: {steps}')
+    # print('traversal path', traversal_path) 
+    # print('current room', player.current_room.id)
+    # print('go back path', go_back_path)
+    # print('prev room', prev_room)
+    # print('prev dir', prev_dir)
     
     #get current room exits
     exits = player.current_room.get_exits()
@@ -91,17 +91,17 @@ while len(traversal_graph) < len(room_graph):
             #puts ? in each direction to mark as unexplored 
             traversal_graph[player.current_room.id][direc] = '?'
     
-    #checks if we have visited all rooms before moving again
-    if len(traversal_graph) == len(room_graph):
-        break
-    
     #check if coming from previous room 
     if prev_room is not None:
         #updates the current and prev room with the corresponding directions
         traversal_graph[prev_room][prev_dir] = player.current_room.id
         traversal_graph[player.current_room.id][opposite_directions[prev_dir]] = prev_room
         
-    print('graph', traversal_graph)
+    #checks if we have visited all rooms before moving again
+    if len(traversal_graph) == len(room_graph):
+        break
+    
+    # print('graph', traversal_graph)
     #get the first unexplored room using 
     direc = getUnexploredExitDir()
 
@@ -129,9 +129,11 @@ while len(traversal_graph) < len(room_graph):
         prev_dir = None
         
     
-    print("---------------------------")
+    # print("---------------------------")
 print('path', traversal_path)
+print("")
 print('graph', traversal_graph)
+print("")
 
 
 # ---------------------- TRAVERSAL TEST ----------------------
