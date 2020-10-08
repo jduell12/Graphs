@@ -58,7 +58,26 @@ It is very difficult to calculate the shortest possible path that traverses the 
 
 My best path is 957 moves. Can you find a shorter path?
 
-- Least number of rooms for full maze possible: 918
+## Shortest paths
+
+- map_file = "maps/test_line.txt"
+
+  - shortest is 2
+
+- map_file = "maps/test_cross.txt"
+
+  - shortest is 14
+
+- map_file = "maps/test_loop.txt"
+
+  - shortest is 14
+
+- map_file = "maps/test_loop_fork.txt"
+
+  - shortest is 24
+
+- map_file = "maps/main_maze.txt"
+  - shortest is 918
 
 ## Rubric
 
