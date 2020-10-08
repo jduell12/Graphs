@@ -45,10 +45,14 @@ traversal_path = []
 #traversal graph
 traversal_graph = {}
 
-print(len(room_graph))
+print('')
 
 #go until the traversal graph has the same length as the room graph 
 while len(traversal_graph) < len(room_graph):
+    # print(player.current_room.id)
+    # print('graph',traversal_graph)
+    # print('path', traversal_path)
+    # print("")
     
     #get current room exits
     exits = player.current_room.get_exits()
@@ -58,31 +62,20 @@ while len(traversal_graph) < len(room_graph):
         traversal_graph[player.current_room.id] = {}
         #goes through each direction in the exit list
         for direc in exits:
+            #puts ? in each direction to mark as unexplored 
             traversal_graph[player.current_room.id][direc] = '?'
-    print(traversal_graph)
     
-    #mark current room as visited
-    traversal_path.append(player.current_room.id)
-
-
-        
-   
-    # #go in the direction
-    # player.travel(direction)
-
-            
-    # print(traversal_graph)
-    # print(traversal_path)
-    break;
+    # print('graph',traversal_graph)
     
-
+    #get the first unexplored room
+    for direc in traversal_graph[player.current_room.id]:
+        if traversal_graph[player.current_room.id][direc] == '?':
+            traversal_path.append(direc)
+            old_room = player.current_room.id
+            player.travel(direc)
+            traversal_graph[old_room][direc] = player.current_room.id
+            break
     
-            
-
-
-
-
-
 
 
 
@@ -91,15 +84,15 @@ visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
 
-# for move in traversal_path:
-#     player.travel(move)
-#     visited_rooms.add(player.current_room)
+for move in traversal_path:
+    player.travel(move)
+    visited_rooms.add(player.current_room)
 
-# if len(visited_rooms) == len(room_graph):
-#     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
-# else:
-#     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-#     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
+if len(visited_rooms) == len(room_graph):
+    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+else:
+    print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
 
