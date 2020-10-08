@@ -35,6 +35,7 @@ world.load_graph(room_graph)
 
 # Print an ASCII map
 world.print_rooms()
+print('')
 
 player = Player(world.starting_room)
 
@@ -59,10 +60,15 @@ opposite_directions = {
     'e': 'w'
 }
 
-print('')
+def getUnexploredExitDir():
+    for direc in traversal_graph[player.current_room.id]:
+        if traversal_graph[player.current_room.id][direc] == '?':
+            return direc
 
 #go until the traversal graph has the same length as the room graph 
-while len(traversal_graph) < len(room_graph):    
+while len(traversal_graph) < len(room_graph):   
+    print('path', traversal_path)
+    print('graph', traversal_graph) 
     #get current room exits
     exits = player.current_room.get_exits()
     
@@ -85,15 +91,19 @@ while len(traversal_graph) < len(room_graph):
         traversal_graph[player.current_room.id][opposite_directions[prev_dir]] = prev_room
     
     #get the first unexplored room using 
-    for direc in traversal_graph[player.current_room.id]:
-        if traversal_graph[player.current_room.id][direc] == '?':
-            traversal_path.append(direc)
-            prev = player.current_room.id
-            prev_dir = direc
-            player.travel(direc)
-            traversal_graph[prev_room][direc] = player.current_room.id
-            break
-    break
+    direc = getUnexploredExitDir()
+    print(direc)
+
+    if direc:
+        traversal_path.append(direc)
+        prev_room = player.current_room.id
+        prev_dir = direc
+        player.travel(direc)
+        traversal_graph[prev_room][direc] = player.current_room.id
+    else:
+        #if didn't find any ? in current room exits go back the way we came until we find ? 
+        old_dir = traversal_path[-1]
+        player.travel(old_dir)
     
 print('path', traversal_path)
 print('graph', traversal_graph)
