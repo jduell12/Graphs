@@ -5,6 +5,19 @@ from world import World
 import random
 from ast import literal_eval
 
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
+
 # Load world
 world = World()
 
@@ -31,27 +44,62 @@ traversal_path = []
 
 #traversal graph
 traversal_graph = {}
-#put first room into the traversal graph
-traversal_graph[player.current_room] = {'n': '?', 's': '?', 'w': '?', 'e': '?'}
+
+print(len(room_graph))
 
 #go until the traversal graph has the same length as the room graph 
 while len(traversal_graph) < len(room_graph):
-    pass
+    
+    #get current room exits
+    exits = player.current_room.get_exits()
+    
+    #put room into the traversal graph with the exits that it has 
+    if player.current_room.id not in traversal_graph:
+        traversal_graph[player.current_room.id] = {}
+        #goes through each direction in the exit list
+        for direc in exits:
+            traversal_graph[player.current_room.id][direc] = '?'
+    print(traversal_graph)
+    
+    #mark current room as visited
+    traversal_path.append(player.current_room.id)
 
-# TRAVERSAL TEST
+
+        
+   
+    # #go in the direction
+    # player.travel(direction)
+
+            
+    # print(traversal_graph)
+    # print(traversal_path)
+    break;
+    
+
+    
+            
+
+
+
+
+
+
+
+
+# ---------------------- TRAVERSAL TEST ----------------------
 visited_rooms = set()
 player.current_room = world.starting_room
 visited_rooms.add(player.current_room)
 
-for move in traversal_path:
-    player.travel(move)
-    visited_rooms.add(player.current_room)
+# for move in traversal_path:
+#     player.travel(move)
+#     visited_rooms.add(player.current_room)
 
-if len(visited_rooms) == len(room_graph):
-    print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
-else:
-    print("TESTS FAILED: INCOMPLETE TRAVERSAL")
-    print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
+# if len(visited_rooms) == len(room_graph):
+#     print(f"TESTS PASSED: {len(traversal_path)} moves, {len(visited_rooms)} rooms visited")
+# else:
+#     print("TESTS FAILED: INCOMPLETE TRAVERSAL")
+#     print(f"{len(room_graph) - len(visited_rooms)} unvisited rooms")
 
 
 
