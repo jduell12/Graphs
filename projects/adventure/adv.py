@@ -130,15 +130,16 @@ while len(traversal_graph) < len(room_graph):
         if len(go_back_path) == 0:
             #resets previous trackers 
             go_back_path = []
-            prev_room = None
-            prev_dir = None
+        prev_room = None
+        prev_dir = None
         
-    
+    if steps > 2000:
+        break
     # print("---------------------------")
-print('path', traversal_path)
-print("")
-print('graph', traversal_graph)
-print("")
+# print('path', traversal_path)
+# print("")
+# print('graph', traversal_graph)
+# print("")
 
 
 # ---------------------- TRAVERSAL TEST ----------------------
